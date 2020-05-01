@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息添加</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        .modal{
+            display: block;
+        }
+        .dialog{
+            position: fixed;
+            left:0;
+            top:0;
+            width:100%;
+            height: 100%;
+            background-color: rgba(0,0,0,.5);
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div id="app" class="container">
+    <add @addstudent="addstudent"></add>
+    <tablelist :students="students" @show="show" v-show="students.length"></tablelist>
+    <hide v-show="isShow" @close="close"></hide>
+</div>
+
+<!---学生信息添加组件-->
+<template id="add">
+    <div>
+        <h2 class="text-center text-info">学生管理系统</h2>
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="h5">学生姓名</label>
+                <input type="text"
+                       class="form-control"
+                       id="exampleInputEmail1"
+                       placeholder="请输入学生姓名" v-model="name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="h5">联系方式</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="exampleInputPassword1"
+                    placeholder="请输入联系方式"
+                    v-model="phone">
+            </div>
+            <button type="submit" class="btn btn-default" @click.prevent="handleClick">添加学生</button>
+        </form>
+    </div>
+</template>
+
+<!--展示学员信息组件-->
+<template id="tablelist">
+    <table class="table table-striped">
+        <caption class="h2 text-center">学生信息表</caption>
+        <tr>
+            <td>学生姓名</td>
+            <td>联系方式</td>
+            <td>删除</td>
+        </tr>
+        <tr v-for="(student,index) of students">
+            <td>{{student.name}}</td>
+            <td>{{student.phone}}</td>
+            <td>
+                <button
+                        class="btn btn-danger btn-xs glyphicon glyphicon-remove-circle"
+                        @click="handleClick(index)">
+                </button>
+            </td>
+        </tr>
+    </table>
+</template>
+
+
+<!--弹窗组件-->
+<template id="hide">
+    <div class="dialog">
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">你确定要删除吗</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-default"
+                            data-dismiss="modal"
+                            @click="cancel">取消</button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            @click="confirm">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    let add = {
+        template:'#add',
+        data(){
+            return {
+                name:'',
+                phone:''
+            }
+        },
+        methods:{
+            handleClick(){  //子组件向父组件传数据
+                this.$emit('addstudent',{
+                    name:this.name,
+                    phone:this.phone,
+                })
+
+                this.name = '';
+                this.phone = '';
+            }
+        }
+    }
+
+    let tablelist = {
+        props:['students'],
+        template: '#tablelist',
+        methods:{
+            handleClick(index){
+                this.$emit('show',index)
+            }
+        }
+    }
+
+    let hide = {
+        template:'#hide',
+        methods:{
+            cancel(){   //让父组件的isShow改成false  不删除当前学生的信息
+                this.$emit('close',false)
+            },
+            confirm(){  //让父组件的isShow改成false  删除当前学生的信息
+                this.$emit('close',true)
+            }
+        }
+    }
+    const vm = new Vue({
+        el:'#app',
+        data:{
+            num:'',
+            students:[],
+            isShow:false,
+        },
+        components:{
+            add,
+            tablelist,
+            hide
+        },
+        watch:{
+            students:{  //监控students数组的变化
+                handler(){
+                    // console.log('数组变化了')
+                    localStorage.setItem('students',JSON.stringify(this.students))
+                },
+                deep:true,
+            }
+        },
+        created(){
+            this.students = JSON.parse(localStorage.getItem('students'))||[]
+        },
+        methods:{
+            addstudent(student){
+                this.students.push(student)
+            },
+            show(index){
+                this.num = index;
+                this.isShow = true; //显示弹窗组件
+            },
+            close(bool){
+                this.isShow = false;
+                if(bool){   //删除当前学生的信息
+                    this.students.splice(this.num,1)
+                }
+            }
+
+        }
+    })
+</script>
+</body>
+</html>

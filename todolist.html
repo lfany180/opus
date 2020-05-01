@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todolists</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+</head>
+<body>
+
+<div id="app" class="container">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h2>今天还有{{num}}件事未做</h2>
+            <input type="text" @keyup.enter="add" v-model="thing">
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item" v-for="(todo,index) of filterTodos">
+                    <input type="checkbox" v-model="todo.isSelected">
+                    <input type="text" :value="todo.thing">
+                    <button
+                        class="btn btn-danger btn-xs pull-right glyphicon glyphicon-remove-circle"
+                        @click="handleDeleteItem(index)"></button>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-footer">
+            <ul class="nav nav-pills">
+                <li role="presentation" :class='{active:hash==="#all"}'><a href="#all">所有任务</a></li>
+                <li role="presentation" :class="{active:hash==='#finish'}"><a href="#finish">已完成</a></li>
+                <li role="presentation" :class="{active:hash==='#unfinish'}"><a href="#unfinish">未完成</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    let vm = new  Vue({
+        el:'#app',
+        data:{
+            thing:'',
+            hash:'#all',    //存储页面的hash值
+            todos:[
+                {
+                    isSelected:false,
+                    thing:'吃饭',
+                },
+                {
+                    isSelected:false,
+                    thing:'散步',
+                },
+            ]
+        },
+        methods:{
+            add(){
+                console.log(this.thing);
+                this.todos.unshift({
+                    thing:this.thing,
+                    isSelected:false,
+                })
+                this.thing = ''
+            },
+            handleDeleteItem(index){
+                this.todos.splice(index,1)
+            }
+        },
+        computed:{
+            num(){
+                return this.todos.filter(todo=>!todo.isSelected).length
+            },
+            filterTodos(){
+                //如果地址栏的hash值是finish    要找出所有isSelected为true的数组成员
+                //如果地址栏的hash值是unfinish  要找出所有isSelected为false的数组成员
+                //如果地址栏的hash值是all       直接返回的是原数组
+                if(this.hash==='#finish') return this.todos.filter(todo=>todo.isSelected)
+                if(this.hash==='#unfinish') return this.todos.filter(todo=>!todo.isSelected)
+                return this.todos
+            }
+        },
+        created(){
+            //监听hash值的变化
+            window.addEventListener('hashchange',()=>{
+                this.hash = window.location.hash
+            })
+        }
+    })
+
+</script>
+</body>
+</html>

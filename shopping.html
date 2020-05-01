@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+</head>
+<body>
+
+<div id="app" class="container">
+    <table class="table">
+        <caption class="h1 text-center text-success">京东购物车</caption>
+        <tr>
+            <td>
+                <label for="all">全选</label>
+                <input
+                    type="checkbox"
+                    id="all"
+                    v-model="all"
+                    @change="checkAll">
+            </td>
+            <td>商品</td>
+            <td>商品描述</td>
+            <td>单价</td>
+            <td>数量</td>
+            <td>小计</td>
+            <td>操作</td>
+        </tr>
+
+
+        <tr v-for="(product,index) of products">
+            <td>
+                <input type="checkbox"
+                       v-model="product.isSelected" @change="checkSingle">
+            </td>
+            <td>
+                <img :src="product.imgUrl" alt="">
+            </td>
+            <td>{{product.bookName}}</td>
+            <td>{{product.price}}</td>
+            <td>
+                <input type="number" v-model="product.amount" min="0">
+            </td>
+            <td>{{product.price*product.amount|xxx(2)}}</td>
+            <td>
+                <button type="button" class="btn btn-danger" @click="handleDeleteItem(index)">删除</button>
+            </td>
+        </tr>
+        <tr>
+            <td>总价：{{sum|xxx(2)}}</td>
+        </tr>
+    </table>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    let vm = new  Vue({
+        el:'#app',
+        filters:{//将价格改成¥+价格+元的形式
+            xxx(price,num){
+                return '￥'+price.toFixed(num)+'元'
+            }
+        },
+        data:{
+            all:false, //全选按钮的状态
+            products:[
+                {
+                    isSelected:false,
+                    imgUrl:"https://img10.360buyimg.com/cms/s80x80_jfs/t6094/107/710811867/382815/4d54717/592bf165N755a88f0.jpg",
+                    bookName:'深入浅出Node.js',
+                    price:	54.50,
+                    amount:1,
+                },
+                {
+                    isSelected:false,
+                    imgUrl:"https://img10.360buyimg.com/cms/s80x80_jfs/t9508/97/2285719018/62961/99c5b1b7/59f299b4Nc9e78adb.jpg",
+                    bookName:'Vue.js实战',
+                    price:	62.4,
+                    amount:1,
+                }
+            ]
+        },
+        computed:{
+            sum(){
+                return this.products.reduce((pre,next)=> {
+                    return pre+(next.isSelected?next.price*next.amount:0);
+                },0)
+            }
+        },
+        methods:{
+            checkAll(){
+                //console.log('执行');
+                this.products.forEach((product)=>{
+                    product.isSelected = this.all
+                })
+            },
+            checkSingle(){
+                this.all = this.products.every(product => product.isSelected)
+            },
+            handleDeleteItem(index){
+                // console.log(index);
+                this.products.splice(index,1);
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
