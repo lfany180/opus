@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>蔡徐坤随机点名作业</title>
+    <style>
+        div{
+            width: 500px;
+            height: 500px;
+            margin-top: 20px;
+            margin: auto;
+            font-size: 100px;
+            line-height: 500px;
+            text-align: center;
+            border: 5px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <button id="start">开始</button>
+    <button id="end">停止</button>
+    <div></div>
+
+    <script>
+    //获得选择器节点
+        var btn1 = document.getElementById('start');
+        var btn2 = document.getElementById('end');
+        var divv = document.querySelector('div');
+
+    //建立名字库
+        function fun1() {
+            var namee = ['李一','范二','张三','李四','林五','赵六','陈七','王八','小九'];//建立名字库数组
+
+            var suiji = parseInt((Math.random()*namee.length));//获得数组中元素的随机下标
+
+            divv.innerHTML = namee[suiji];//盒子中打印出数组中的元素
+        }
+
+    //设置双按钮的点击事件
+        var bol = true;
+        var time;
+        btn1.onclick = function () {
+            if(bol == true) {
+                clearInterval(time);//为了避免出现bug
+                time = setInterval('fun1()',200);//设置计时器
+                divv.style.color = 'black';
+            }
+        }
+    
+        btn2.onclick = function () {
+            clearInterval(time);//清除计时器
+            divv.style.color = 'red';
+        }
+
+    //设置单个按钮控制
+    // var bol = true;
+    //     var time;
+    //     btn1.onclick = function () {
+    //         if(bol == true) {
+    //             time = setInterval('fun1()',200);//设置计时器
+    //             divv.style.color = 'black';
+    //             bol = false;
+    //             btn1.innerHTML = '停止';//改变botton里面的字
+    //         } else {
+    //             bol = true;
+    //             btn1.innerHTML = '开始';//改变botton里面的字
+    //             clearInterval(time);//清除计时器
+    //             divv.style.color = 'red';
+    //         }
+    //     }
+
+    </script>
+</body>
+</html>
