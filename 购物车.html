@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>蔡徐坤购物车作业</title>
+<style>
+    *{padding: 0;margin: 0;}
+    ul{list-style: none;}
+    #wrap{
+        position: relative;
+        width: 780px;
+        height: 414px;
+        margin: 50px auto;
+    }
+    .tit{
+        width: 100%;
+        height: 50px;
+        font-size: 0;
+    }
+    p,li span{
+        display: inline-block;
+        width: 130px;
+        height: 50px;
+        font-size: 15px;
+        border-bottom: 2px solid rgb(88, 88, 88);
+        line-height: 50px;
+        text-align: center;
+        vertical-align: middle;
+    }
+    p{
+        font-weight: bold;
+        font-size: 18px;
+    }
+    ul{
+        font-size: 0;
+    }
+    ul li{
+        width: 780px;
+        height: 50px;
+        font-size: 0;
+        border-bottom: 2px solid rgb(88, 88, 88);
+    }
+    ul li .numm i{
+        display: inline-block;
+        width: 20px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+    }
+    ul li .numm .reduc{
+        width: 30px;
+        border-radius: 5px;
+        background-color: rgb(0, 110, 255);
+        cursor: pointer;
+    }
+    ul li .numm .addd{
+        width: 30px;
+        border-radius: 5px;
+        background-color: rgb(0, 110, 255);
+        cursor: pointer;
+    }
+    ul li .del i{
+        display: inline-block;
+        width: 40px;
+        height: 30px;
+        line-height: 30px;
+        vertical-align: middle;
+        border-radius: 5px;
+        background-color: rgb(228, 72, 72);
+        color: aliceblue;
+    }
+    .footer{
+        width: 100%;
+        height: 50px;
+    }
+    .footer span{
+        display: inline-block;
+        width: 150px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+    }
+    .footer .clear{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 120px;
+        border-radius: 5px;
+        background-color: rgb(241, 58, 58);
+        color: aliceblue;
+    }
+</style>
+
+</head>
+<body>
+    <div id="wrap">
+        <div class="tit">
+            <p>
+                <input id="allChoose" type="checkbox">
+                全选
+            </p>
+            <p>商品</p>
+            <p>单价</p>
+            <p>数量</p>
+            <p>小计</p>
+            <p>操作</p>
+        </div>
+        <ul>
+            <li>
+                <span class="choos">
+                    <input type="checkbox">
+                </span>
+                <span class="puduct">商品1</span>
+                <span class="uPrice">1.25</span>
+                <span class="numm">
+                    <i class="reduc"> - </i>
+                    <i class="num">1</i>
+                    <i class="addd"> + </i>
+                </span>
+                <span class="Subtotal">2.66</span>
+                <span class="del">
+                    <i>删除</i>
+                </span>
+            </li>
+            <li>
+                <span class="choos">
+                    <input type="checkbox">
+                </span>
+                <span class="puduct">商品2</span>
+                <span class="uPrice">4.75</span>
+                <span class="numm">
+                    <i class="reduc"> - </i>
+                    <i class="num">2</i>
+                    <i class="addd"> + </i>
+                </span>
+                <span class="Subtotal">2.66</span>
+                <span class="del">
+                    <i>删除</i>
+                </span>
+            </li>
+            <li>
+                <span class="choos">
+                    <input type="checkbox">
+                </span>
+                <span class="puduct">商品3</span>
+                <span class="uPrice">3.75</span>
+                <span class="numm">
+                    <i class="reduc"> - </i>
+                    <i class="num">3</i>
+                    <i class="addd"> + </i>
+                </span>
+                <span class="Subtotal">2.65</span>
+                <span class="del">
+                    <i>删除</i>
+                </span>
+            </li>
+            <li>
+                <span class="choos">
+                    <input type="checkbox">
+                </span>
+                <span class="puduct">商品4</span>
+                <span class="uPrice">1.25</span>
+                <span class="numm">
+                    <i class="reduc"> - </i>
+                    <i class="num">4</i>
+                    <i class="addd"> + </i>
+                </span>
+                <span class="Subtotal">2.66</span>
+                <span class="del">
+                    <i>删除</i>
+                </span>
+            </li>
+            <li>
+                <span class="choos">
+                    <input type="checkbox">
+                </span>
+                <span class="puduct">商品5</span>
+                <span class="uPrice">4.25</span>
+                <span class="numm">
+                    <i class="reduc"> - </i>
+                    <i class="num">5</i>
+                    <i class="addd"> + </i>
+                </span>
+                <span class="Subtotal">2.65</span>
+                <span class="del">
+                    <i>删除</i>
+                </span>
+            </li>
+            <li>
+                <span class="choos">
+                    <input type="checkbox">
+                </span>
+                <span class="puduct">商品6</span>
+                <span class="uPrice">6.75</span>
+                <span class="numm">
+                    <i class="reduc"> - </i>
+                    <i class="num">6</i>
+                    <i class="addd"> + </i>
+                </span>
+                <span class="Subtotal">2.66</span>
+                <span class="del">
+                    <i>删除</i>
+                </span>
+            </li>
+        </ul>
+        <div class="footer">
+            <span>
+                数量总计：
+               <i class="totalNum"> 0 </i>
+            </span>
+            <span>
+                价格总计：
+                <i class="totalPrice"> 0 </i>
+            </span>
+            <span class="clear">清空购物车</span>
+        </div>
+    </div>
+
+    <script>
+
+
+    //全选和全不选功能
+        let choos = document.querySelectorAll('.choos input');
+        let allChoose = document.getElementById('allChoose');
+
+        // allChoose.onclick = function () {
+        //     for (let i = 0; i < choos.length; i++) {
+        //         if (allChoose.checked == true) {
+        //             choos[i].checked = true;
+        //         } else {
+        //             choos[i].checked = false;
+        //         }
+        //     }
+        // }
+    
+    //小计功能
+        let num = document.querySelectorAll(".num");
+        let uPrice = document.querySelectorAll(".uPrice");
+        let Subtotal = document.querySelectorAll(".Subtotal");
+
+        for (let i = 0; i < uPrice.length; i++) { 
+            Subtotal[i].innerHTML = parseFloat(num[i].innerHTML)*parseFloat(uPrice[i].innerHTML);
+        }
+
+
+    //加减按钮使数量变化
+        let reduc = document.querySelectorAll(".reduc");
+        let addd = document.querySelectorAll(".addd");
+
+        //减号按钮
+        for (let i = 0; i < reduc.length; i++) { 
+            reduc[i].onclick = function () {
+                if (parseFloat(num[i].innerHTML) == 1) {
+                    confirm("你确定要删除商品？");
+                } else {
+                    num[i].innerHTML--
+                    Subtotal[i].innerHTML = parseFloat(num[i].innerHTML)*parseFloat(uPrice[i].innerHTML);
+                } 
+            }
+        }
+
+        //加号按钮
+        for (let i = 0; i < addd.length; i++) { 
+            addd[i].onclick = function () {
+                num[i].innerHTML++
+                Subtotal[i].innerHTML = parseFloat(num[i].innerHTML)*parseFloat(uPrice[i].innerHTML);
+            }
+        }
+    
+
+    //数量总计和价格总计功能
+        let totalNum = document.querySelector(".totalNum");
+        let arry1 = [];
+        let arry2 = [];
+        let totalPrice = document.querySelector(".totalPrice");
+        let arry3 = [];
+        let arry4 = [];
+        
+        //单个选择按钮的数量总计和价格总计功能
+        for (let i = 0; i < addd.length; i++) {
+            choos[i].onclick = function () {
+                if (choos[i].checked == true) {
+                    arry1 = [];
+                    arry3 = [];
+                    arry1.push(parseInt(num[i].innerHTML));
+                    arry3.push(parseFloat(Subtotal[i].innerHTML));
+                    totalNum.innerHTML = arry1.reduce (function (prev, cur, index, array) {
+                        return prev + cur;})
+                    totalPrice.innerHTML = arry3.reduce (function (prev, cur, index, array) {
+                        return prev + cur;})
+                } else {
+                    totalNum.innerHTML = 0;
+                    totalPrice.innerHTML = 0;
+                }
+            }
+        }
+        
+
+        //全选按钮的全选功能和数量总计、价格总计功能
+            allChoose.onclick = function () {
+                for (let i = 0; i < choos.length; i++) {
+                    if (allChoose.checked == true) {
+                        choos[i].checked = true;
+                    } else {
+                        choos[i].checked = false;
+                    }
+                }
+                arry2 = [];
+                arry4 = [];
+                for (let i = 0; i < choos.length; i++) {
+                    if (choos[i].checked == true) {
+                        arry2.push(parseInt(num[i].innerHTML));
+                        arry4.push(parseFloat(Subtotal[i].innerHTML));
+                    } else {
+                        totalNum.innerHTML = 0;
+                        totalPrice.innerHTML = 0;
+                    }
+                }
+                totalNum.innerHTML = arry2.reduce (function (prev, cur, index, array) {
+                    return prev + cur;});
+                totalPrice.innerHTML = arry4.reduce (function (prev, cur, index, array) {
+                    return prev + cur;});
+                
+            }
+
+    </script>
+</body>
+</html>
